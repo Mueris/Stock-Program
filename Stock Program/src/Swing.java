@@ -5,7 +5,7 @@
 	
 	public class Swing   {
 		public void function(MLL list) {
-			
+			//new line
 			JFrame f = new JFrame("Pencere");
 			JLabel l1 = new JLabel("Category");
 			JLabel l2 = new JLabel("Name");
