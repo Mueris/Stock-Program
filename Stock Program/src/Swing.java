@@ -150,7 +150,9 @@
 						
 						//Þu an kaydediliyor linked liste bu alanda yapýlmasý gereken Daimi depolamaya kaydetmek kaldý!
 					}
-					
+					f.dispose();
+					f.setVisible(false);
+					function(list);
 					
 				}
 			});
@@ -329,7 +331,10 @@
 						product.setName(name);
 						product.setBarcode(Integer.parseInt(barcode));
 						product.setStock(Integer.parseInt(stock));
+						if(currentCategory.equals(arrT[i][0].getText()))
 						listshown.add(product);
+						else
+							list.addElement(product.getCategory(), product);
 						
 						
 						l5.setText("Succesfull!");
