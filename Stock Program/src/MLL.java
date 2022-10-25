@@ -141,7 +141,14 @@ public class MLL {
 		tempC.setDown(temp);
 		return tempC;
 	}
-	
+	public void headChanger(ColumnNode newHead) {
+		ColumnNode temp =head;
+		newHead.setDown(temp.getDown());
+		newHead.setRight(newHead.getRight());
+		newHead.setData(newHead.getData());
+		head = newHead;
+		
+	}
 	
 	
 	

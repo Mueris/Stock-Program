@@ -279,10 +279,10 @@
 			if(tempCpre==null) {// if the category column is the head
 				
 				ColumnNode node = new ColumnNode(((Product)temp.getData()).getCategory());
-				node.setDown(tempC);
-				node.setRight(temp);
 				node.setData(((Product)temp.getData()).getCategory());
-				//head yap bunu
+				node.setRight(temp);
+				list.headChanger(node);
+				
 				
 				
 				
