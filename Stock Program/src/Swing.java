@@ -116,9 +116,9 @@
 			l4.setBounds(345,5,70,30);
 			l5.setBounds(350, 250, 250, 30);
 			
-			btn1.setBounds(350, 130, 150, 30);
-			btn.setBounds(350, 100, 150, 30);
-			btn2.setBounds(350, 160, 150, 30);
+			btn1.setBounds(450, 130, 150, 30);
+			btn.setBounds(450, 100, 150, 30);
+			btn2.setBounds(450, 160, 150, 30);
 			cb.setBounds(10, 10, 100, 20);
 			
 			
@@ -305,8 +305,8 @@
 			l4.setBounds(345,5,70,30);
 			l5.setBounds(350, 250, 250, 30);
 			
-			btn1.setBounds(350, 130, 150, 30);
-			btn.setBounds(350, 100, 150, 30);
+			btn1.setBounds(450, 130, 150, 30);
+			btn.setBounds(450, 100, 150, 30);
 			cb.setBounds(10, 10, 100, 20);
 			
 			//BUTONLARI AYARLA!
@@ -468,8 +468,8 @@
 			JButton btn = new JButton("EDIT!");
 			JButton btn1 = new JButton("Menu");
 			
-			btn1.setBounds(250, 170, 100, 30);
-			btn.setBounds(250, 100, 100, 30);
+			btn1.setBounds(450, 170, 100, 30);
+			btn.setBounds(450, 100, 100, 30);
 			
 			btn.addActionListener(new ActionListener() {
 				
