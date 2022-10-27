@@ -149,6 +149,46 @@ public class MLL {
 		head = newHead;
 		
 	}
+	public void remove(Product pro) {
+		ColumnNode temp =head;
+		ElementNode tempE= null;
+		ElementNode tempEPre=null;
+		
+		while(temp.getDown() !=  null && !pro.getCategory().equals(temp.getData())) {//Category based searching.
+			temp=temp.getDown();
+		}
+		if(pro.getCategory().equals(temp.getData())) {//Category has been found.
+			tempE=temp.getRight();
+			
+		}
+		else {
+			//no Category found
+		}
+		if(temp.getDown()==null &&tempE.getNext()==null && pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() == ((Product) tempE.getData()).getBarcode()) {
+			//NULL POÝNTER EXCEPTÝON SEBEB OLUYOR TEK ÝTEM KKALIRSA SÝLÝNMESÝN ÞÝMDÝLÝK!
+		}
+		
+		while(tempE.getNext()!=null && !pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() != ((Product) tempE.getData()).getBarcode()) {
+			//product based searcihng
+			tempEPre=tempE;
+			tempE=tempE.getNext();
+		}
+		if(tempEPre==null) {
+			temp.setRight(tempE.getNext());
+		}
+		else if(tempE.getNext()!=null && pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() == ((Product) tempE.getData()).getBarcode()){
+			tempEPre.setNext(tempE.getNext());
+			//remove(pro);//calling the function again so if there is a exact  CANCELED NO NEED!
+		}
+		else if(pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() == ((Product) tempE.getData()).getBarcode()) {
+			tempEPre.setNext(null);
+		}
+		else {
+			//No product found so continue with function.
+			//Swing data = new Swing();
+			//data.function(list, listShwon, pro.getCategory());ÞÝMDÝLÝK KALDIRILDI HANGÝ ARAYÜZDEN SÝLÝNECEÐÝNÝ BÝLMÝYORUZ
+		}
+	}
 	
 	
 	

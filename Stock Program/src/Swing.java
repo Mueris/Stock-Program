@@ -1,5 +1,5 @@
-	import javax.swing.JFrame;
-	import java.awt.event.ActionEvent;
+	import java.awt.Point;
+import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 	import javax.swing.*;
 	
@@ -15,6 +15,8 @@
 			JButton btn = new JButton("EDIT!");
 			JButton btn1 = new JButton("Menu");
 			JButton btn2 = new JButton("Search Category!");//This button helps comboBox to work! Try to find a way to not to use it!
+			JButton deleteAll= new JButton("Delete");
+			
 			JTextField txf = null;
 			JTextField txfN = null;
 			JTextField txfB = null;
@@ -49,7 +51,7 @@
 			int count=0;
 			 i=-1;
 			ColumnNode node = list.getHead();
-			while (true) {
+			while (node!=null) {
 				i++;
 				
 				if(node!= null && i== 0) {
@@ -66,14 +68,23 @@
 				
 				
 			}
-			JTextField arrT[][] = new JTextField[count][4];//if user will be edit the categories wich will be added, you can use a variable instead of 4.
 			
+			JTextField arrT[][] = new JTextField[count][4];//if user will be edit the categories wich will be added, you can use a variable instead of 4.
+			JCheckBox[] chxs = new JCheckBox[count];
+			JCheckBox chx;
+			for(int a =0;a<chxs.length;a++) {
+				chx= new JCheckBox();
+				chxs[a]=chx;
+				chx.setBounds(40, 10+(30*(a+1)), 30, 25);
+				f.add(chx);
+			}
 			i=0;
 			ColumnNode head = list.getHead();
 			ColumnNode temp = head;
-			while(true) {
+			while(temp!=null && temp.getRight()!=null) {
 				
 				ElementNode tempE;
+				
 				tempE=temp.getRight();
 				while(tempE!=null) {
 					i++;
@@ -81,14 +92,17 @@
 					txfN= new JTextField(((Product)tempE.getData()).getName());
 				    txfB = new JTextField(String.valueOf(((Product)tempE.getData()).getBarcode()));
 					txfS = new JTextField(String.valueOf(((Product)tempE.getData()).getStock()));
-					txfN.setBounds(110,10+(30*i),100,25);
-					txfB.setBounds(210,10+(30*i),100,25);
-					txfS.setBounds(310,10+(30*i),100,25);
-					txf.setBounds(10,10+(30*i),100,25);
+					
+					
+					txfN.setBounds(170,10+(30*i),100,25);
+					txfB.setBounds(270,10+(30*i),100,25);
+					txfS.setBounds(370,10+(30*i),100,25);
+					txf.setBounds(70,10+(30*i),100,25);
 					arrT[i-1][0]=txf;
 					arrT[i-1][1]=txfN;
 					arrT[i-1][2]=txfB;
 					arrT[i-1][3]=txfS;
+					
 					f.add(txf);
 					f.add(txfN);
 					f.add(txfB);
@@ -119,10 +133,38 @@
 			btn1.setBounds(450, 130, 150, 30);
 			btn.setBounds(450, 100, 150, 30);
 			btn2.setBounds(450, 160, 150, 30);
+			deleteAll.setBounds(550, 250, 150, 30);
 			cb.setBounds(10, 10, 100, 20);
 			
 			
-			
+			deleteAll.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					for(int i=0;i<chxs.length;i++) {
+						if(chxs[i].isSelected()) {
+							Point p = chxs[i].getLocation();
+							int y = (int) p.getY();
+							int index = (y-10)/30;
+							Product p1 = new Product();
+							p1.setCategory(arrT[index-1][0].getText());
+							p1.setBarcode(Integer.parseInt(arrT[index-1][2].getText()));
+							p1.setStock(Integer.parseInt(arrT[index-1][3].getText()));
+							p1.setName(arrT[index-1][1].getText());
+							list.remove(p1);
+							
+						}
+						
+						
+						
+					}
+					f.dispose();
+					f.setVisible(false);
+					function(list);
+					
+					
+				}
+			});
 			btn.addActionListener(new ActionListener() {
 				
 				@Override
@@ -196,10 +238,21 @@
 			});
 			//JScrollBar scr = new JScrollBar();
 			//scr.setBounds(770, 0, 30, 750);
+			
+			
+			if(count== 0) {//There is no product
+				l5.setBounds(150,250,200,100);
+				l5.setText("NO Product Found Please add a Product by  the menu");
+				//menu(list);
+				//f.dispose();
+				//f.setVisible(false);
+			}
+			
 			f.add(cb);
 			f.add(btn);
 			f.add(btn1);
 			f.add(btn2);
+			f.add(deleteAll);
 			f.add(l1);
 			f.add(l2);
 			f.add(l3);
