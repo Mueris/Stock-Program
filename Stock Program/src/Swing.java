@@ -47,6 +47,7 @@ import java.awt.event.ActionEvent;
 					}
 				}
 			}
+
 			cb= new JComboBox(categories);
 			int count=0;
 			 i=-1;
@@ -213,39 +214,33 @@ import java.awt.event.ActionEvent;
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					SingleLinkedList listShown= new SingleLinkedList();
-					for(int i=0;i<arrT.length;i++) {
-						
-						if(arrT[i][0].getText().equals(cb.getSelectedItem())){
-							Product p = new Product();
+					if(categories.length!=0) {
+						SingleLinkedList listShown= new SingleLinkedList();
+						for(int i=0;i<arrT.length;i++) {
 							
-							p.setCategory(arrT[i][0].getText());
-							p.setName(arrT[i][1].getText());
-							p.setBarcode(Integer.parseInt(arrT[i][2].getText()));
-							p.setStock(Integer.parseInt(arrT[i][3].getText()));
-							listShown.add(p);
-									
+							if(arrT[i][0].getText().equals(cb.getSelectedItem())){
+								Product p = new Product();
+								
+								p.setCategory(arrT[i][0].getText());
+								p.setName(arrT[i][1].getText());
+								p.setBarcode(Integer.parseInt(arrT[i][2].getText()));
+								p.setStock(Integer.parseInt(arrT[i][3].getText()));
+								listShown.add(p);			
+							}
 						}
-						
-						
+						function(list,listShown,((Product)listShown.getHead().getData()).getCategory());
+						f.setVisible(false);
+						f.dispose();
 					}
-					function(list,listShown,((Product)listShown.getHead().getData()).getCategory());
-					f.setVisible(false);
-					f.dispose();
-					
-					
 				}
 			});
 			//JScrollBar scr = new JScrollBar();
 			//scr.setBounds(770, 0, 30, 750);
 			
-			
 			if(count== 0) {//There is no product
-				l5.setBounds(150,250,200,100);
-				l5.setText("NO Product Found Please add a Product by  the menu");
-				//menu(list);
-				//f.dispose();
-				//f.setVisible(false);
+				l5.setBounds(50,250,500,100);
+				l5.setText("No Product Found Please add a Product by  the menu");
+				
 			}
 			
 			f.add(cb);
@@ -337,9 +332,7 @@ import java.awt.event.ActionEvent;
 				node.setData(((Product)temp.getData()).getCategory());
 				node.setRight(temp);
 				list.headChanger(node);
-				
-				
-				
+
 				
 			}
 			else if(tempC!=null && temp != null ){

@@ -144,17 +144,17 @@ public class MLL {
 	public void headChanger(ColumnNode newHead) {
 		ColumnNode temp =head;
 		newHead.setDown(temp.getDown());
-		newHead.setRight(newHead.getRight());
-		newHead.setData(newHead.getData());
 		head = newHead;
 		
 	}
 	public void remove(Product pro) {
 		ColumnNode temp =head;
+		ColumnNode tempPre=null;
 		ElementNode tempE= null;
 		ElementNode tempEPre=null;
 		
-		while(temp.getDown() !=  null && !pro.getCategory().equals(temp.getData())) {//Category based searching.
+		while(temp.getDown() !=  null && !pro.getCategory().equals(temp.getData())) {//Category based searching.	
+			tempPre=temp;
 			temp=temp.getDown();
 		}
 		if(pro.getCategory().equals(temp.getData())) {//Category has been found.
@@ -164,29 +164,47 @@ public class MLL {
 		else {
 			//no Category found
 		}
-		if(temp.getDown()==null &&tempE.getNext()==null && pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() == ((Product) tempE.getData()).getBarcode()) {
-			//NULL POÝNTER EXCEPTÝON SEBEB OLUYOR TEK ÝTEM KKALIRSA SÝLÝNMESÝN ÞÝMDÝLÝK!
-		}
+		
+		//now we have found the right column finding right product and deleting it is in below
 		
 		while(tempE.getNext()!=null && !pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() != ((Product) tempE.getData()).getBarcode()) {
 			//product based searcihng
 			tempEPre=tempE;
 			tempE=tempE.getNext();
 		}
-		if(tempEPre==null) {
-			temp.setRight(tempE.getNext());
+		if(tempEPre==null) {//Deleting category!
+			if(tempE.getNext()==null) {
+				if(tempPre!=null&&temp.getDown()!=null) {
+					tempPre.setDown(tempPre.getDown());
+				}
+				else if(tempPre!=null && temp.getDown()==null){
+					tempPre.setDown(null);
+				}
+				else {//just 1 column situation
+					if(temp.getDown()!=null) {
+						ColumnNode newNode= head.getDown();
+						head = newNode;
+						
+					}
+					else {
+						head=null;
+					}
+				}
+			}
+			else {
+				temp.setRight(tempE.getNext());
+			}
+			
 		}
 		else if(tempE.getNext()!=null && pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() == ((Product) tempE.getData()).getBarcode()){
 			tempEPre.setNext(tempE.getNext());
-			//remove(pro);//calling the function again so if there is a exact  CANCELED NO NEED!
+			
 		}
 		else if(pro.getName().equals(((Product) tempE.getData()).getName()) && pro.getBarcode() == ((Product) tempE.getData()).getBarcode()) {
 			tempEPre.setNext(null);
 		}
 		else {
 			//No product found so continue with function.
-			//Swing data = new Swing();
-			//data.function(list, listShwon, pro.getCategory());ÞÝMDÝLÝK KALDIRILDI HANGÝ ARAYÜZDEN SÝLÝNECEÐÝNÝ BÝLMÝYORUZ
 		}
 	}
 	
