@@ -1,4 +1,6 @@
-	import java.awt.Point;
+
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
 	import javax.swing.*;
@@ -76,7 +78,7 @@ import java.awt.event.ActionEvent;
 			for(int a =0;a<chxs.length;a++) {
 				chx= new JCheckBox();
 				chxs[a]=chx;
-				chx.setBounds(40, 10+(30*(a+1)), 30, 25);
+				chx.setBounds(40, 60+(30*(a+1)), 30, 25);
 				f.add(chx);
 			}
 			i=0;
@@ -95,10 +97,10 @@ import java.awt.event.ActionEvent;
 					txfS = new JTextField(String.valueOf(((Product)tempE.getData()).getStock()));
 					
 					
-					txfN.setBounds(170,10+(30*i),100,25);
-					txfB.setBounds(270,10+(30*i),100,25);
-					txfS.setBounds(370,10+(30*i),100,25);
-					txf.setBounds(70,10+(30*i),100,25);
+					txfN.setBounds(170,60+(30*i),100,25);
+					txfB.setBounds(270,60+(30*i),100,25);
+					txfS.setBounds(370,60+(30*i),100,25);
+					txf.setBounds(70,60+(30*i),100,25);
 					arrT[i-1][0]=txf;
 					arrT[i-1][1]=txfN;
 					arrT[i-1][2]=txfB;
@@ -126,16 +128,16 @@ import java.awt.event.ActionEvent;
 			
 			
 			//l1.setBounds(14, 5, 70, 30);
-			l2.setBounds(150,5,70,30);
-			l3.setBounds(235,5,70,30);
-			l4.setBounds(345,5,70,30);
-			l5.setBounds(350, 250, 250, 30);
+			l2.setBounds(210,55,70,30);
+			l3.setBounds(295,55,70,30);
+			l4.setBounds(395,55,70,30);
+			l5.setBounds(410, 300, 250, 30);
 			
-			btn1.setBounds(450, 130, 150, 30);
-			btn.setBounds(450, 100, 150, 30);
-			btn2.setBounds(450, 160, 150, 30);
-			deleteAll.setBounds(550, 250, 150, 30);
-			cb.setBounds(10, 10, 100, 20);
+			btn1.setBounds(470, 180, 150, 30);
+			btn.setBounds(470, 150, 150, 30);
+			btn2.setBounds(470, 210, 150, 30);
+			deleteAll.setBounds(470, 240, 150, 30);
+			cb.setBounds(70, 60, 100, 20);
 			
 			
 			deleteAll.addActionListener(new ActionListener() {
@@ -146,7 +148,7 @@ import java.awt.event.ActionEvent;
 						if(chxs[i].isSelected()) {
 							Point p = chxs[i].getLocation();
 							int y = (int) p.getY();
-							int index = (y-10)/30;
+							int index = (y-60)/30;
 							Product p1 = new Product();
 							p1.setCategory(arrT[index-1][0].getText());
 							p1.setBarcode(Integer.parseInt(arrT[index-1][2].getText()));
@@ -159,11 +161,14 @@ import java.awt.event.ActionEvent;
 						
 						
 					}
-					f.dispose();
-					f.setVisible(false);
-					function(list);
-					
-					
+					if(chxs.length!=0) {
+						f.dispose();
+						f.setVisible(false);
+						function(list);
+					}
+					else
+						l5.setText("There is no element to delete!");
+	
 				}
 			});
 			btn.addActionListener(new ActionListener() {
@@ -193,9 +198,14 @@ import java.awt.event.ActionEvent;
 						
 						//Þu an kaydediliyor linked liste bu alanda yapýlmasý gereken Daimi depolamaya kaydetmek kaldý!
 					}
-					f.dispose();
-					f.setVisible(false);
-					function(list);
+					if(arrT.length!=0) {
+						f.dispose();
+						f.setVisible(false);
+						function(list);
+					}
+					else
+						l5.setText("There is no element to Edit!");
+					
 					
 				}
 			});
@@ -263,13 +273,14 @@ import java.awt.event.ActionEvent;
 			//To search category
 			
 			JFrame f = new JFrame("Pencere");//Arranging buttons and layers
-			JLabel l1 = new JLabel("Category");
-			JLabel l2 = new JLabel("Name");
-			JLabel l3 = new JLabel("Barcode");
-			JLabel l4 = new JLabel("Stock");
-			JLabel l5 = new JLabel("Waiting for the edit...");
-			JButton btn = new JButton("EDIT!");
-			JButton btn1 = new JButton("Menu");
+			JLabel lCategory = new JLabel("Category");
+			JLabel lName = new JLabel("Name");
+			JLabel lBarcode = new JLabel("Barcode");
+			JLabel lStock = new JLabel("Stock");
+			JLabel lMessage = new JLabel("Waiting for the edit...");
+			JButton editBtn = new JButton("EDIT!");
+			JButton menuBtn = new JButton("Menu");
+			JButton deleteBtn= new JButton("Delete");
 			JTextField txf = null;
 			JTextField txfN = null;
 			JTextField txfB = null;
@@ -285,6 +296,14 @@ import java.awt.event.ActionEvent;
 			
 			
 			ColumnNode head = list.getHead();
+			JCheckBox[] chxs = new JCheckBox[listshown.size()];
+			JCheckBox chx;
+			for(int a =0;a<chxs.length;a++) {
+				chx= new JCheckBox();
+				chxs[a]=chx;
+				chx.setBounds(40, 60+(30*(a+1)), 30, 25);
+				f.add(chx);
+			}
 			i=0;
 			temp = listshown.getHead();
 			
@@ -294,10 +313,10 @@ import java.awt.event.ActionEvent;
 					txfN= new JTextField(((Product)temp.getData()).getName());
 				    txfB = new JTextField(String.valueOf(((Product)temp.getData()).getBarcode()));
 					txfS = new JTextField(String.valueOf(((Product)temp.getData()).getStock()));
-					txfN.setBounds(110,10+(30*i),100,25);
-					txfB.setBounds(210,10+(30*i),100,25);
-					txfS.setBounds(310,10+(30*i),100,25);
-					txf.setBounds(10,10+(30*i),100,25);
+					txfN.setBounds(170,60+(30*i),100,25);
+					txfB.setBounds(270,60+(30*i),100,25);
+					txfS.setBounds(370,60+(30*i),100,25);
+					txf.setBounds(70,60+(30*i),100,25);
 					arrT[i-1][0]=txf;
 					arrT[i-1][1]=txfN;
 					arrT[i-1][2]=txfB;
@@ -346,18 +365,50 @@ import java.awt.event.ActionEvent;
 			}
 			else System.out.println("HATA");
 			
-			l2.setBounds(150,5,70,30);
-			l3.setBounds(235,5,70,30);
-			l4.setBounds(345,5,70,30);
-			l5.setBounds(350, 250, 250, 30);
 			
-			btn1.setBounds(450, 130, 150, 30);
-			btn.setBounds(450, 100, 150, 30);
-			cb.setBounds(10, 10, 100, 20);
+			lName .setBounds(210,55,70,30);
+			lBarcode.setBounds(290,55,70,30);
+			lStock.setBounds(395,55,70,30);
+			lMessage.setBounds(400, 300, 250, 30);
 			
-			//BUTONLARI AYARLA!
+			menuBtn.setBounds(450, 180, 150, 30);
+			editBtn.setBounds(450, 150, 150, 30);
+			deleteBtn.setBounds(450, 210, 150, 30);
+			cb.setBounds(70, 60, 100, 20);
 			
-			btn.addActionListener(new ActionListener() {
+			deleteBtn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					for(int i=0;i<chxs.length;i++) {
+						if(chxs[i].isSelected()) {
+							Point p = chxs[i].getLocation();
+							int y = (int) p.getY();
+							int index = (y-60)/30;
+							Product p1 = new Product();
+							p1.setCategory(arrT[index-1][0].getText());
+							p1.setBarcode(Integer.parseInt(arrT[index-1][2].getText()));
+							p1.setStock(Integer.parseInt(arrT[index-1][3].getText()));
+							p1.setName(arrT[index-1][1].getText());
+							list.remove(p1);
+							
+						}
+						
+						
+						
+					}
+					if(chxs.length!=0) {
+						f.dispose();
+						f.setVisible(false);
+						function(list);
+					}
+					else
+						lMessage.setText("There is no element to delete!");
+	
+				}
+			});
+			
+			editBtn.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -383,7 +434,7 @@ import java.awt.event.ActionEvent;
 							list.addElement(product.getCategory(), product);
 						
 						
-						l5.setText("Succesfull!");
+						lMessage.setText("Succesfull!");
 						
 						//Þu an kaydediliyor linked liste bu alanda yapýlmasý gereken Daimi depolamaya kaydetmek kaldý!
 					}
@@ -394,7 +445,7 @@ import java.awt.event.ActionEvent;
 					
 				}
 			});
-			btn1.addActionListener(new ActionListener() {
+			menuBtn.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -403,16 +454,16 @@ import java.awt.event.ActionEvent;
 					menu(list);
 				}
 			});
-			
-			
+			brandMenu(list, f);
 			f.add(cb);
-			f.add(btn);
-			f.add(btn1);
-			f.add(l1);
-			f.add(l2);
-			f.add(l3);
-			f.add(l4);
-			f.add(l5);
+			f.add(editBtn);
+			f.add(menuBtn);
+			f.add(deleteBtn);
+			f.add(lCategory);
+			f.add(lName);
+			f.add(lBarcode );
+			f.add(lStock );
+			f.add(lMessage);
 			f.setSize(800,750);
 			f.setLayout(null);
 			f.setVisible(true);
@@ -559,7 +610,34 @@ import java.awt.event.ActionEvent;
 			f.setVisible(true);
 			
 		}
-		
+		public void brandMenu(MLL list, JFrame f) {//UNDER CONSTRACTÝON
+			JMenuBar cv=new JMenuBar();
+			
+			UIManager.put("MenuBar.background", Color.ORANGE);
+			
+			JMenu me= new JMenu("previous Menu");
+			cv.add(me);
+			f.setJMenuBar(cv);
+			
+			JButton but = new JButton("sea");
+			but.setBounds(250, 0, 20, 20);
+			but.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					function(list);
+					
+				}
+			});
+			cv.add(but);
+			//mb.add(but);
+			//mb.setBounds(250, 250, 100, 100);
+		   // UIManager.put("MenuBar.background", Color.ORANGE);
+		    
+			//f.setJMenuBar(mb);
+			f.add(but);
+			f.add(cv);
+		}
 		
 		
 		

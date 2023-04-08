@@ -44,6 +44,7 @@ public class main {
 			else
 				loose++;
 		}
+		assert win < 69500 :"False";
 		System.out.println("wins: "+win+"  looses:  "+loose);
 		
 		
